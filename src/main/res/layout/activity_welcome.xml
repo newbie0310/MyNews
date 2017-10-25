@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.myapplication.ui.widget.CustomVideoView
+        android:id="@+id/welcome_vedioView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+
+    <Button
+        android:id="@+id/welcome_buotton"
+        android:layout_marginBottom="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="进入新闻1.0"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="@drawable/head_bt_bg"/>
+
+</RelativeLayout>
