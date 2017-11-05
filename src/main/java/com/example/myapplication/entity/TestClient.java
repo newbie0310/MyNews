@@ -2,6 +2,7 @@ package com.example.myapplication.entity;
 
 import android.util.Log;
 
+import com.example.myapplication.manager.ArticleDataManager;
 import com.example.myapplication.manager.CategoryDataManager;
 import com.example.myapplication.manager.HeadDataManager;
 import com.example.myapplication.manager.HomeNewsDataManager;
@@ -36,6 +37,9 @@ public class TestClient {
 
             List<HomeNewsBean> homeNewsBeanList = new HomeNewsDataManager().getHomeNews(doc);
             System.out.println(gson.toJson(homeNewsBeanList));
+
+//            new ArticleDataManager().getArticBean(Jsoup.connect("https://www.leiphone.com/news/201710/IO3uxgYZyHt0AcPI.html").timeout(10000).get());
+            System.out.println(gson.toJson(new ArticleDataManager().getArticBean(Jsoup.connect("https://www.leiphone.com/news/201710/IO3uxgYZyHt0AcPI.html").timeout(5000).get())));
 //            Element headElement = doc.select("div.idx-selRead").first();
 //            Elements box = headElement.select("div.box");
 //            for (Element element : box){

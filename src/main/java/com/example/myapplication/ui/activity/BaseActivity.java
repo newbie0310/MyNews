@@ -44,7 +44,7 @@ public class BaseActivity extends FragmentActivity {
                 @Override
                 public void run() {
                     int titleHeight = linear_bar.getHeight();
-                    android.widget.RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) linear_bar.getLayoutParams();
+                    android.widget.LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) linear_bar.getLayoutParams();
                     layoutParams.height = statusHeight + titleHeight;
                     linear_bar.setLayoutParams(layoutParams);
                 }

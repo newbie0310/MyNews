@@ -75,7 +75,7 @@ public class DragLayout extends FrameLayout {
     class YScrollDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx, float dy) {
-            return Math.abs(dy) <= Math.abs(dx);
+            return Math.abs(dy) <= Math.abs(dx) && isDrage != false;
         }
     }
 
@@ -398,4 +398,17 @@ public class DragLayout extends FrameLayout {
         }
     }
 
+    //是否可以滑动出现侧边菜单
+    private boolean isDrage = true;
+
+    public boolean isDrage() {
+        return isDrage;
+    }
+
+    public void setDrage(boolean drage) {
+        isDrage = drage;
+        if(isDrage){
+            dragHelper.abort();
+        }
+    }
 }
