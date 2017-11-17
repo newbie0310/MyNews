@@ -1,15 +1,29 @@
 package com.example.myapplication.ui.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.common.Config;
 import com.example.myapplication.common.DefineView;
+import com.example.myapplication.entity.CategoriesBean;
+import com.example.myapplication.manager.CategoryDataManager;
 import com.example.myapplication.ui.fragment.base.BaseFragment;
+import com.example.myapplication.util.OkHttpManager;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
+import java.util.List;
+
+import okhttp3.Request;
 
 /**
  * Created by john1 on 2017/11/4.
@@ -18,12 +32,12 @@ import com.example.myapplication.ui.fragment.base.BaseFragment;
 public class PageFragment extends BaseFragment implements DefineView{
     private View mView;
     private static final String KEY = "EXTRA";
-    private String message;
+    private CategoriesBean categoriesBean;
     private TextView tv_page;
 
-    public static PageFragment newsInstance(String extra){
+    public static PageFragment newsInstance(CategoriesBean extra){
         Bundle bundle = new Bundle();
-        bundle.putString(KEY,extra);
+        bundle.putSerializable(KEY,extra);
         PageFragment pageFragment = new PageFragment();
         pageFragment.setArguments(bundle);
         return pageFragment;
@@ -34,7 +48,7 @@ public class PageFragment extends BaseFragment implements DefineView{
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null){
-            message = bundle.getString(KEY);
+            categoriesBean = (CategoriesBean) bundle.getSerializable(KEY);
         }
     }
 
@@ -54,9 +68,7 @@ public class PageFragment extends BaseFragment implements DefineView{
     @Override
     public void initView() {
         tv_page = mView.findViewById(R.id.tv_page);
-        if (message != null){
-            tv_page.setText(message);
-        }
+            tv_page.setText(categoriesBean.getTitle());
     }
 
     @Override

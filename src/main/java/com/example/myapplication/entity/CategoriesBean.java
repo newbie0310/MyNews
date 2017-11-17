@@ -1,10 +1,12 @@
 package com.example.myapplication.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by john1 on 2017/10/26.
  */
 
-public class CategoriesBean {
+public class CategoriesBean implements Serializable {
     private String title; // 分类Tab名称
     private String href; // 分类点击地址
     public CategoriesBean() {
@@ -35,7 +37,7 @@ public class CategoriesBean {
     @Override
     public String toString() {
         return "CategoriesBean [title=" + title + ", href=" + href
-                + ", data_type=" + "]";
+                 + "]";
     }
 
 }

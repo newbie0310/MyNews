@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 
 import com.example.myapplication.R;
 import com.example.myapplication.common.DefineView;
+import com.example.myapplication.entity.CategoriesBean;
 import com.example.myapplication.ui.MainActivity;
 import com.example.myapplication.ui.adapter.FixedPageAdapter;
 import com.example.myapplication.ui.fragment.base.BaseFragment;
+import com.example.myapplication.util.CatagoryDataUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ public class MainInfoFragment extends BaseFragment implements DefineView ,ViewPa
     private ViewPager info_viewpager;
     private FixedPageAdapter fixedPageAdapter;
     private List<BaseFragment> fragments;
-    private String[] titles = new String[]{"业界","人工智能","智能驾驶","AI+","Fintech","未来医疗","网络安全","AR/VR","机器人","开发者","智能硬件","物联网","GAIR"};
+    private static List<CategoriesBean> categoriesBeans = CatagoryDataUtils.getCategoryBeans();
 
     @Nullable
     @Override
@@ -51,10 +53,10 @@ public class MainInfoFragment extends BaseFragment implements DefineView ,ViewPa
     @Override
     public void initValidata() {
         fixedPageAdapter=new FixedPageAdapter(getChildFragmentManager());
-        fixedPageAdapter.setTitle(titles);
+        fixedPageAdapter.setCategoriesBeans(categoriesBeans);
         fragments=new ArrayList<BaseFragment>();
-        for(int i=0;i<titles.length;i++){
-            fragments.add(PageFragment.newsInstance(titles[i]));
+        for(int i=0;i<categoriesBeans.size();i++){
+            fragments.add(PageFragment.newsInstance(categoriesBeans.get(i)));
         }
         fixedPageAdapter.setFragments(fragments);
 
@@ -72,7 +74,6 @@ public class MainInfoFragment extends BaseFragment implements DefineView ,ViewPa
     public void bindData() {
 
     }
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
