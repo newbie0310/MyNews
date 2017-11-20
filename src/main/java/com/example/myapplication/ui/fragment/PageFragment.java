@@ -3,6 +3,7 @@ package com.example.myapplication.ui.fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.common.Config;
 import com.example.myapplication.common.DefineView;
 import com.example.myapplication.entity.CategoriesBean;
 import com.example.myapplication.manager.CategoryDataManager;
@@ -68,7 +68,7 @@ public class PageFragment extends BaseFragment implements DefineView{
     @Override
     public void initView() {
         tv_page = mView.findViewById(R.id.tv_page);
-            tv_page.setText(categoriesBean.getTitle());
+        tv_page.setText(categoriesBean.getTitle());
     }
 
     @Override

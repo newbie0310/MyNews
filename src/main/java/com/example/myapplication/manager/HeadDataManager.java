@@ -19,9 +19,7 @@ public class HeadDataManager {
 
     public List<AdHeadBean> getHeadBeans(Document document) {
         List<AdHeadBean> adHeadBeans = new ArrayList<>();
-        String html = "https://www.leiphone.com/";
         try {
-//            doc = Jsoup.connect(html).timeout(5000).get();
             Element headElement = document.select("div.idx-selRead").first();
             Elements box = headElement.select("div.box");
             for (Element element : box) {

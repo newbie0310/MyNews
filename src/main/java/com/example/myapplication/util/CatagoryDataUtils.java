@@ -12,6 +12,7 @@ import java.util.List;
 public class CatagoryDataUtils {
     public static List<CategoriesBean> getCategoryBeans() {
         List<CategoriesBean> beans = new ArrayList<>();
+        beans.add(new CategoriesBean("全部","https://www.leiphone.com/"));
         beans.add(new CategoriesBean("业界","https://www.leiphone.com/category/sponsor"));
         beans.add(new CategoriesBean("人工智能","https://www.leiphone.com/category/ai"));
         beans.add(new CategoriesBean("智能驾驶","https://www.leiphone.com/category/transportation"));

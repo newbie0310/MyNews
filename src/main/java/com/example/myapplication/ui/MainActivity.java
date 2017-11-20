@@ -1,10 +1,13 @@
 package com.example.myapplication.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -32,6 +35,8 @@ public class MainActivity extends BaseActivity implements DefineView {
     private DragLayout drag_Layout;
     private ImageView top_bar_icon;
     private ListView lv_left_main;
+    public static int WIDTH;
+    public static int HEIGHT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,12 @@ public class MainActivity extends BaseActivity implements DefineView {
         drag_Layout = findViewById(R.id.drag_Layout);
         top_bar_icon = findViewById(R.id.top_bar_icon);
         lv_left_main = findViewById(R.id.lv_left_main);
+
+        WindowManager manager = this.getWindowManager();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(outMetrics);
+        WIDTH = outMetrics.widthPixels;
+        HEIGHT = outMetrics.heightPixels;
     }
 
     @Override

@@ -31,8 +31,9 @@ public class HomeNewsDataManager {
                 String href = element.select("div.word").first().select("a[href]").attr("href");
                 String tid = CTextUtils.getArticleId(href);
                 String authorName = element.select("div.word").first().select("div.msg").select("a.aut").text();
+                String authoImg = element.select("div.word").first().select("img").attr("src");
                 String datetime = element.select("div.word").first().select("div.msg").select("div.time").text();
-                homeNewsBeen.add(new HomeNewsBean(tid,mask,imgurl,href,title,brief,authorName,datetime));
+                homeNewsBeen.add(new HomeNewsBean(tid,mask,imgurl,href,title,brief,authorName,datetime,authoImg));
             };
         } catch (Exception e) {
             e.printStackTrace();

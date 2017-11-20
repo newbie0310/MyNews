@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <com.example.myapplication.ui.widget.RoundAngleImageView
+            android:id="@+id/item_news_img_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/defaultbg"
+            app:roundWidth="10dp"
+            app:roundHeight="10dp"
+            android:scaleType="fitXY"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/item_news_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="二狗子"
+            android:layout_toRightOf="@id/item_news_img_icon"
+            android:textSize="12sp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/color_head_title"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/item_news_tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="十分钟前"
+            android:layout_toRightOf="@id/item_news_tv_name"
+            android:textSize="12sp"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/color_head_title"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:background="@color/mask_tags_2"
+            android:id="@+id/item_news_tv_arrow"
+            android:layout_width="5dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:id="@+id/item_news_tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/item_news_tv_arrow"
+            android:textSize="12sp"
+            android:textColor="@color/mask_tags_12"
+            android:text="专栏"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <!--标题和logo图片-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/item_news_tv_title"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:layout_marginRight="5dp"
+            android:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
+            android:textColor="@color/color_black"/>
+
+        <ImageView
+            android:id="@+id/item_news_tv_img"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:src="@drawable/defaultbg"/>
+    </LinearLayout>
+</LinearLayout>

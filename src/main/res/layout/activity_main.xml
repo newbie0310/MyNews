@@ -32,6 +32,6 @@
                     android:layout_height="match_parent"
                     class="com.example.myapplication.ui.fragment.MainInfoFragment"/>
             </FrameLayout>
-        </LinearLayout>>
+        </LinearLayout>
     </com.example.myapplication.ui.widget.CustomRelativeLayout>
 </com.example.myapplication.ui.widget.DragLayout>

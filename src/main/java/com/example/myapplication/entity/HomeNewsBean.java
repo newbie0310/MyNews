@@ -13,10 +13,11 @@ public class HomeNewsBean {
     private String brief; // 文章简述
     private String authorName; // 作者名字
     private String datetime; // 文章发表时间
+    private String authoImg; //文章作者头像
 
     public HomeNewsBean(String tid,String mask, String imgurl, String href,
                         String title, String brief, String authorName,
-                        String datetime) {
+                        String datetime,String authoImg) {
         this.tid = tid;
         this.mask = mask;
         this.imgurl = imgurl;
@@ -25,6 +26,7 @@ public class HomeNewsBean {
         this.brief = brief;
         this.authorName = authorName;
         this.datetime = datetime;
+        this.authoImg = authoImg;
     }
 
     public String getMask() {
@@ -83,6 +85,16 @@ public class HomeNewsBean {
         this.datetime = datetime;
     }
 
+
+
+    public String getAuthoImg() {
+        return authoImg;
+    }
+
+    public void setAuthoImg(String authoImg) {
+        this.authoImg = authoImg;
+    }
+
     @Override
     public String toString() {
         return "HomeNewsBean" +
@@ -94,6 +106,7 @@ public class HomeNewsBean {
                 ", brief='" + brief +
                 ", authorName='" + authorName  +
                 ", datetime='" + datetime  +
+                ", authoImg" +
                 ']';
     }
 }

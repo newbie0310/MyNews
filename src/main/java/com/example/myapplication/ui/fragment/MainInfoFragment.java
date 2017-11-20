@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,13 @@ public class MainInfoFragment extends BaseFragment implements DefineView ,ViewPa
         fixedPageAdapter.setCategoriesBeans(categoriesBeans);
         fragments=new ArrayList<BaseFragment>();
         for(int i=0;i<categoriesBeans.size();i++){
-            fragments.add(PageFragment.newsInstance(categoriesBeans.get(i)));
+            BaseFragment fragment = null;
+            if (i == 0){
+                fragment = HomeFragment.newsInstance(categoriesBeans.get(i));
+            }else {
+                fragment = PageFragment.newsInstance(categoriesBeans.get(i));
+            }
+            fragments.add(fragment);
         }
         fixedPageAdapter.setFragments(fragments);
 
