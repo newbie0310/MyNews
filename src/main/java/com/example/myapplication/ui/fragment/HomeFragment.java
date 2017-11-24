@@ -31,6 +31,8 @@ import com.example.myapplication.manager.HeadDataManager;
 import com.example.myapplication.ui.MainActivity;
 import com.example.myapplication.ui.fragment.base.BaseFragment;
 import com.example.myapplication.util.OkHttpManager;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -64,6 +66,11 @@ public class HomeFragment extends BaseFragment implements DefineView {
     private LinearLayout loading, error, empty;
     private View headView;
     private LayoutInflater mInflate;
+
+    //初始化图片UIL图片加载组件
+    private ImageLoader mImageLoader;
+    private DisplayImageOptions options;
+
 
     //轮播图
     private int gallerySelectedPosition = 0; //Gallery索引，表示当前在第几页
@@ -119,6 +126,11 @@ public class HomeFragment extends BaseFragment implements DefineView {
 
     @Override
     public void initValidata() {
+        mImageLoader = ImageLoader.getInstance();
+        options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.defaultbg)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
         masks = new String[]{"业界", "人工智能", "智能驾驶",
                 "AI+", "Fintech", "未来医疗", "网络安全", "AR/VR",
                 "机器人", "开发者", "智能硬件", "物联网"};
@@ -206,9 +218,9 @@ public class HomeFragment extends BaseFragment implements DefineView {
                     helper.setText(R.id.item_news_tv_name, item.getAuthorName())
                             .setText(R.id.item_news_tv_time, item.getDatetime())
                             .setText(R.id.item_news_tv_type, mask)
-                            .setText(R.id.item_news_tv_title, item.getTitle())
-                            .setImageUrl(R.id.item_news_tv_img,item.getImgurl())
-                            .setImageUrl(R.id.item_news_img_icon,item.getAuthoImg());
+                            .setText(R.id.item_news_tv_title, item.getTitle());
+                    mImageLoader.displayImage(item.getImgurl(), (ImageView) helper.getView(R.id.item_news_img_icon),options);
+                    mImageLoader.displayImage(item.getAuthoImg(), (ImageView) helper.getView(R.id.item_news_tv_img),options);
                     int index = 0;
                     for (int i = 0; i < mask.length(); i++) {
                         if (masks[i].equals(mask)) {
@@ -217,7 +229,7 @@ public class HomeFragment extends BaseFragment implements DefineView {
                         }
                     }
 
-                    TextView tv_type = (TextView) helper.getView(R.id.item_news_tv_type);
+                    TextView tv_type = helper.getView(R.id.item_news_tv_type);
                     tv_type.setTextColor(getActivity().getResources().getColor(mask_colors[index]));
                     helper.getView(R.id.item_news_tv_arrow).setBackgroundColor(getActivity().getResources().getColor(mask_colors[index]));
                 }
@@ -257,9 +269,11 @@ public class HomeFragment extends BaseFragment implements DefineView {
                 holder = (Holder) view.getTag();
             }
             //显示数据
-             Picasso.with(mView.getContext()).load(adHeadBeans.get(i%adHeadBeans.size()).getImgurl())
-                     .transform(getTransformation())
-                     .into( holder.item_head_galley_img );
+//             Picasso.with(mView.getContext()).load(adHeadBeans.get(i%adHeadBeans.size()).getImgurl())
+//                     .transform(getTransformation())
+//                     .into( holder.item_head_galley_img );
+            view.setMinimumWidth(MainActivity.WIDTH);
+            mImageLoader.displayImage(adHeadBeans.get(i%adHeadBeans.size()).getImgurl(),holder.item_head_galley_img,options);
             return view;
         }
     }
@@ -268,6 +282,7 @@ public class HomeFragment extends BaseFragment implements DefineView {
         ImageView item_head_galley_img;
     }
 
+    //设置轮播图图片大小
     private Transformation getTransformation(){
         Transformation transformation = new Transformation() {
             @Override
