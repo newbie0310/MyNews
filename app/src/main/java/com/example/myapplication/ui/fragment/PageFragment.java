@@ -2,7 +2,9 @@ package com.example.myapplication.ui.fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -52,6 +54,8 @@ public class PageFragment extends BaseFragment implements DefineView{
     private List<HomeNewsBean> homeNewsBeans;
     //recyclerView适配器
     HomeRecyclerAdapter adapter;
+    //界面刷新控件
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public static PageFragment newsInstance(CategoriesBean extra){
         Bundle bundle = new Bundle();
@@ -89,10 +93,19 @@ public class PageFragment extends BaseFragment implements DefineView{
         empty = mView.findViewById(R.id.empty);
 //        home_fragment = mView.findViewById(R.id.home_fragment);
         home_recyclerView = mView.findViewById(R.id.page_recyclerview);
+        swipeRefreshLayout = mView.findViewById(R.id.swipeRefreshLayout);
     }
 
     @Override
     public void initValidata() {
+        //刷新背景颜色
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.color_white));
+        //刷新进度条颜色
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        swipeRefreshLayout.setProgressViewOffset(false,0,50);
         home_recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         home_recyclerView.setLayoutManager(layoutManager);
@@ -119,7 +132,20 @@ public class PageFragment extends BaseFragment implements DefineView{
 
     @Override
     public void initListener() {
-
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (swipeRefreshLayout.isRefreshing()){
+                            swipeRefreshLayout.setRefreshing(false);
+                            Toast.makeText(getActivity(),"刷新成功",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, 3000);
+            }
+        });
     }
 
     //绑定数据
