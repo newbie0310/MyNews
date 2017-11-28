@@ -46,7 +46,7 @@ import java.util.zip.Inflater;
 import okhttp3.Request;
 
 /**
- * Created by zaXie on 2017/11/17.
+ * "全部"新闻
  */
 
 public class HomeFragment extends BaseFragment implements DefineView {
@@ -60,8 +60,10 @@ public class HomeFragment extends BaseFragment implements DefineView {
     private List<AdHeadBean> adHeadBeans;
     private QuickAdapter<HomeNewsBean> quickAdapter;
     private PullToRefreshListView home_list;
-    private String[] masks;
-    private int[] mask_colors;
+    //分类标签颜色及名字
+    public static String[] masks;
+    public static int[] mask_colors;
+
     private FrameLayout home_fragment;
     private LinearLayout loading, error, empty;
     private View headView;
@@ -211,7 +213,7 @@ public class HomeFragment extends BaseFragment implements DefineView {
             }
         });
 
-            quickAdapter = new QuickAdapter<HomeNewsBean>(getActivity(), R.layout.item_home_news_layout, homeNewsBeans) {
+        quickAdapter = new QuickAdapter<HomeNewsBean>(getActivity(), R.layout.item_home_news_layout, homeNewsBeans) {
                 @Override
                 protected void convert(BaseAdapterHelper helper, HomeNewsBean item) {
                     String mask = item.getMask();
@@ -219,8 +221,8 @@ public class HomeFragment extends BaseFragment implements DefineView {
                             .setText(R.id.item_news_tv_time, item.getDatetime())
                             .setText(R.id.item_news_tv_type, mask)
                             .setText(R.id.item_news_tv_title, item.getTitle());
-                    mImageLoader.displayImage(item.getImgurl(), (ImageView) helper.getView(R.id.item_news_img_icon),options);
-                    mImageLoader.displayImage(item.getAuthoImg(), (ImageView) helper.getView(R.id.item_news_tv_img),options);
+                    mImageLoader.displayImage(item.getImgurl(), (ImageView) helper.getView(R.id.item_news_tv_img),options);
+                    mImageLoader.displayImage(item.getAuthoImg(), (ImageView) helper.getView(R.id.item_news_img_icon),options);
                     int index = 0;
                     for (int i = 0; i < mask.length(); i++) {
                         if (masks[i].equals(mask)) {

@@ -4,15 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_page"
-        android:layout_weight="1"
-        android:textColor="@color/color_black"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="子页面fragment"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/page_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+
+    <FrameLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/prompt_framelayout">
+        <include layout="@layout/loading"/>
+        <include layout="@layout/empty"/>
+        <include layout="@layout/error"/>
+    </FrameLayout>
 
 
 </LinearLayout>
