@@ -47,6 +47,9 @@ public class PageFragment extends BaseFragment implements DefineView{
     private RecyclerView home_recyclerView;
     private FrameLayout home_fragment;
     private LinearLayout loading, error, empty;
+    private int lastItem; //记录当前滚动位置
+    private boolean isMore = true; //是否可以上拉刷新
+    private int index = 1;
 
     //recyclerview布局管理器
     private LinearLayoutManager layoutManager;
@@ -146,6 +149,47 @@ public class PageFragment extends BaseFragment implements DefineView{
                 }, 3000);
             }
         });
+
+        //滚动监听
+        home_recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            //滚动状态
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (isMore){
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE && lastItem + 1 == layoutManager.getItemCount()){
+                        isMore =  false;
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                OkHttpManager.getAsync(categoriesBean.getHref() + "/page/" + index, new OkHttpManager.DataCallBack() {
+                                    @Override
+                                    public void requestFailue(Request request, IOException e) {
+                                        Toast.makeText(getActivity(),"requestFailue...",Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void requestSucess(String result) {
+                                        Document document = Jsoup.parse(result, Config.CRAWLER_URL);
+                                       homeNewsBeans.addAll(new HomeNewsDataManager().getHomeNews(document));
+                                       adapter.notifyDataSetChanged();
+                                        isMore = true;
+                                    }
+                                });
+                                index ++;
+                                Toast.makeText(getActivity(),"加载更多成功",Toast.LENGTH_SHORT).show();
+                            }
+                        }, 3000);
+                    }
+                }
+            }
+            //滚动位置
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastItem = layoutManager.findLastVisibleItemPosition();
+            }
+        });
     }
 
     //绑定数据
@@ -154,4 +198,5 @@ public class PageFragment extends BaseFragment implements DefineView{
         adapter.setHomeNewsBeans(homeNewsBeans);
         home_recyclerView.setAdapter(adapter);
     }
+
 }

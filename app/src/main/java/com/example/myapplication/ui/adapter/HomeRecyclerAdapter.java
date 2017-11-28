@@ -24,6 +24,8 @@ import java.util.List;
  */
 
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    private static final int TYPE_ITEM = 0;
+    private static final int TYPE_FOOT = 1;
     private Context mContext;
     private LayoutInflater mInflater;
     private List<HomeNewsBean> homeNewsBeans; //新闻列表数据
@@ -52,15 +54,21 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.item_home_news_layout,parent,false);
-        ItemViewHolder itemViewHolder = new ItemViewHolder(itemView);
-        return itemViewHolder;
+        if (viewType == TYPE_ITEM){
+            View itemView = mInflater.inflate(R.layout.item_home_news_layout,parent,false);
+            return new ItemViewHolder(itemView);
+        }else if (viewType == TYPE_FOOT){
+            View itemView = mInflater.inflate(R.layout.recycler_load_more_layout,parent,false);
+            return new FootViewHolder(itemView);
+        }
+        return null;
     }
 
+    //绑定数据
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        HomeNewsBean homeNewsBean = homeNewsBeans.get(position);
         if (holder instanceof ItemViewHolder){
+            HomeNewsBean homeNewsBean = homeNewsBeans.get(position);
             String mask = homeNewsBean.getMask();
             mImageLoader.displayImage(homeNewsBeans.get(position).getImgurl(),((ItemViewHolder) holder).item_news_tv_img);
             mImageLoader.displayImage(homeNewsBeans.get(position).getAuthoImg(),((ItemViewHolder) holder).item_news_img_icon);
@@ -78,12 +86,23 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
             ((ItemViewHolder) holder).item_news_tv_type.setTextColor(mContext.getResources().getColor(HomeFragment.mask_colors[index]));
             ((ItemViewHolder) holder).item_news_tv_arrow.setBackgroundColor(mContext.getResources().getColor(HomeFragment.mask_colors[index]));
+        }else if (holder instanceof FootViewHolder){
+            //上拉加载更多布局
         }
     }
 
     @Override
     public int getItemCount() {
-        return homeNewsBeans == null ? 0 : homeNewsBeans.size();
+        return homeNewsBeans == null ? 0 : homeNewsBeans.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position + 1 == getItemCount()){
+            return TYPE_FOOT;
+        }else {
+            return TYPE_ITEM;
+        }
     }
 
     //自定义ViewHolder
@@ -104,6 +123,13 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             item_news_tv_title = itemView.findViewById(R.id.item_news_tv_title);
             item_news_tv_img = itemView.findViewById(R.id.item_news_tv_img);
             item_news_tv_arrow = itemView.findViewById(R.id.item_news_tv_arrow);
+        }
+    }
+    //上拉加载更多ViewHolder
+    private class FootViewHolder extends RecyclerView.ViewHolder{
+
+        public FootViewHolder(View itemView) {
+            super(itemView);
         }
     }
 }
